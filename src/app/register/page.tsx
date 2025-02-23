@@ -39,6 +39,7 @@ export default function Register() {
         Object.values(errors).forEach((messages) => {
           messages.forEach((message) => toast.error(message));
         });
+        return;
       } else {
         toast.error(data.error || "Error registering user.");
       }
