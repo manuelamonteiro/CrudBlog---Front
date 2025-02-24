@@ -20,12 +20,14 @@ interface DeleteCommentProps {
     comment: Comment | null;
     open: boolean;
     onClose: () => void;
+    mutate: () => void;
 }
 
 export default function DeleteComment({
     comment,
     open,
     onClose,
+    mutate,
 }: DeleteCommentProps) {
     const handleConfirmDelete = async () => {
         if (!comment) return;
@@ -55,6 +57,7 @@ export default function DeleteComment({
             }
 
             toast.success("Comment deleted successfully.");
+            mutate();
             onClose();
         } catch (error) {
             toast.error("An unexpected error occurred.");

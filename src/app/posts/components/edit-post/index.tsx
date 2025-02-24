@@ -15,12 +15,14 @@ interface EditPostProps {
     post: any;
     open: boolean;
     onClose: () => void;
+    mutate: () => void;
 }
 
 export default function EditPost({
     post,
     open,
     onClose,
+    mutate,
 }: EditPostProps) {
     const [formData, setFormData] = useState({ title: "", content: "" });
 
@@ -64,6 +66,7 @@ export default function EditPost({
             }
 
             toast.success("Post updated successfully.");
+            mutate();
             onClose();
         } catch (error) {
             toast.error("An unexpected error occurred.");

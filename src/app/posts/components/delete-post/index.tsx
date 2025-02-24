@@ -14,12 +14,14 @@ interface DeletePostProps {
   post: any;
   open: boolean;
   onClose: () => void;
+  mutate: () => void;
 }
 
 export default function DeletePost({
   post,
   open,
   onClose,
+  mutate
 }: DeletePostProps) {
   const handleConfirmDelete = async () => {
     if (!post) return;
@@ -51,6 +53,7 @@ export default function DeletePost({
       }
 
       toast.success("Post deleted successfully.");
+      mutate();
       onClose();
     } catch (error) {
       toast.error("An unexpected error occurred.");

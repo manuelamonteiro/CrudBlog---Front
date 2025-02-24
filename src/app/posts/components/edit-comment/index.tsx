@@ -21,12 +21,14 @@ interface EditCommentProps {
     comment: Comment | null;
     open: boolean;
     onClose: () => void;
+    mutate: () => void;
 }
 
 export default function EditComment({
     comment,
     open,
     onClose,
+    mutate,
 }: EditCommentProps) {
     const [content, setContent] = useState("");
 
@@ -73,6 +75,7 @@ export default function EditComment({
             }
 
             toast.success("Comment updated successfully.");
+            mutate();
             onClose();
         } catch (error) {
             toast.error("An unexpected error occurred.");

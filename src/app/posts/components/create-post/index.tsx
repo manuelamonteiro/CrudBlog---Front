@@ -12,7 +12,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-export default function CreatePost() {
+interface CreatePostProps {
+    mutate: () => void;
+}
+
+export default function CreatePost({
+    mutate,
+}: CreatePostProps) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({ title: "", content: "" });
 
@@ -50,6 +56,7 @@ export default function CreatePost() {
             }
 
             toast.success("Post created successfully.");
+            mutate();
             setOpen(false);
             setFormData({ title: "", content: "" });
         } catch (error) {

@@ -15,12 +15,14 @@ interface CreateCommentProps {
   postId: number;
   open: boolean;
   onClose: () => void;
+  mutate: () => void;
 }
 
 export default function CreateComment({
   postId,
   open,
   onClose,
+  mutate,
 }: CreateCommentProps) {
   const [content, setContent] = useState("");
 
@@ -60,6 +62,7 @@ export default function CreateComment({
       }
 
       toast.success("Comment created successfully.");
+      mutate();
       onClose();
       setContent("");
     } catch (error) {

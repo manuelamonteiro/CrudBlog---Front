@@ -28,11 +28,13 @@ interface Comment {
 interface CommentsSectionProps {
   postId: number;
   comments: Comment[];
+  mutate: () => void;
 }
 
 export default function CommentsSection({
   postId,
   comments,
+  mutate,
 }: CommentsSectionProps) {
   const [createOpen, setCreateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -104,6 +106,7 @@ export default function CommentsSection({
         postId={postId}
         open={createOpen}
         onClose={() => setCreateOpen(false)}
+        mutate={mutate}
       />
 
       <EditComment
@@ -113,6 +116,7 @@ export default function CommentsSection({
           setEditOpen(false);
           setSelectedComment(null);
         }}
+        mutate={mutate}
       />
 
       <DeleteComment
@@ -122,6 +126,7 @@ export default function CommentsSection({
           setDeleteOpen(false);
           setSelectedComment(null);
         }}
+        mutate={mutate}
       />
     </div>
   );
