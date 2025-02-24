@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator"; // Adjust the import path to match your project
-import { ScrollArea } from "@/components/ui/scroll-area"; // Adjust the import path to match your project
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import CreateComment from "../create-comment";
 import EditComment from "../edit-comment";
@@ -52,14 +52,13 @@ export default function CommentsSection({
 
   return (
     <div className="mt-2">
-      {/* Create Comment Button */}
-      <div className="mb-4 flex justify-end">
-        <Button variant="ghost" onClick={() => setCreateOpen(true)}>
-          <MessageSquarePlus />
-        </Button>
-      </div>
-
-      <ScrollArea className="max-h-64 border p-2 rounded">
+      <ScrollArea className="max-h-64 border p-2 rounded overflow-y-auto">
+        <div className="mb-4 flex justify-end">
+          <Button variant="ghost" onClick={() => setCreateOpen(true)}>
+            <MessageSquarePlus />
+          </Button>
+        </div>
+        
         {comments && comments.length > 0 ? (
           comments.map((comment, index) => (
             <div key={comment.id}>
@@ -97,7 +96,7 @@ export default function CommentsSection({
             </div>
           ))
         ) : (
-          <p className="text-gray-500">No comments.</p>
+          <p className="text-sm text-gray-500">No comments yet.</p>
         )}
       </ScrollArea>
 

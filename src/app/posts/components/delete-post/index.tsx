@@ -40,7 +40,7 @@ export default function DeletePost({
       const data = await res.json();
 
       if (!res.ok) {
-        if (res.status === 403) {
+        if (res.status === 401 || res.status === 403) {
           toast.error("You are not authorized to perform this operation.");
         } else {
           toast.error(data.error || "Failed to create post.");

@@ -33,7 +33,7 @@ export default function DeleteComment({
 
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/comments/${comment.id}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/posts/${comment.post_id}/comments/${comment.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -49,6 +49,8 @@ export default function DeleteComment({
                 } else {
                     toast.error("Failed to delete comment.");
                 }
+
+                onClose();
                 return;
             }
 
@@ -56,6 +58,7 @@ export default function DeleteComment({
             onClose();
         } catch (error) {
             toast.error("An unexpected error occurred.");
+            onClose();
             console.error(error);
         }
     };

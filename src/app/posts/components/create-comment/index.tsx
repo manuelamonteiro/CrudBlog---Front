@@ -9,7 +9,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 interface CreateCommentProps {
@@ -54,6 +53,9 @@ export default function CreateComment({
         } else {
           toast.error(data?.error || "Failed to create comment.");
         }
+
+        onClose();
+        setContent("");
         return;
       }
 
@@ -62,6 +64,8 @@ export default function CreateComment({
       setContent("");
     } catch (error) {
       toast.error("An unexpected error occurred.");
+      onClose();
+      setContent("");
       console.error(error);
     }
   };

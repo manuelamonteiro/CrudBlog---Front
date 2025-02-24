@@ -53,7 +53,7 @@ export default function EditPost({
                     Object.values(errors).forEach((messages) => {
                         messages.forEach((message) => toast.error(message));
                     });
-                } else if (res.status === 403) {
+                } else if (res.status === 401 || res.status === 403) {
                     toast.error("You are not authorized to perform this operation.");
                 } else {
                     toast.error(data.error || "Failed to create post.");

@@ -42,7 +42,7 @@ export default function EditComment({
 
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/comments/${comment.id}`,
+                `${process.env.NEXT_PUBLIC_API_URL}/posts/${comment.post_id}/comments/${comment.id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -67,6 +67,8 @@ export default function EditComment({
                 } else {
                     toast.error(data?.error || "Failed to edit comment.");
                 }
+                
+                onClose();
                 return;
             }
 
@@ -74,6 +76,7 @@ export default function EditComment({
             onClose();
         } catch (error) {
             toast.error("An unexpected error occurred.");
+            onClose();
             console.error(error);
         }
     };
