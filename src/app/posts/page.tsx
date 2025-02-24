@@ -13,6 +13,8 @@ import {
 import CreatePost from "./components/create-post";
 import EditPost from "./components/edit-post";
 import DeletePost from "./components/delete-post";
+import CommentsSection from "./components/comment";
+import { useRouter } from "next/navigation";
 
 interface Comment {
     id: number;
@@ -30,6 +32,7 @@ interface Post {
 }
 
 export default function PostsPage() {
+    const router = useRouter();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [expandedPosts, setExpandedPosts] = useState<Record<number, boolean>>({});
@@ -90,7 +93,15 @@ export default function PostsPage() {
     return (
         <div className="container mx-auto p-4">
             <div className="flex justify-end mb-4">
-                <CreatePost />
+                <div className="flex justify-end items-center gap-4 mb-4">
+                    <Button
+                        variant="outline"
+                        onClick={() => router.push("/login")}
+                    >
+                        Login
+                    </Button>
+                    <CreatePost />
+                </div>
             </div>
 
             {loading ? (
@@ -129,40 +140,31 @@ export default function PostsPage() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <p>{post.content}</p>
+                            <p className="pl-1">{post.content}</p>
                             <Button
                                 variant="ghost"
                                 onClick={() => toggleExpand(post.id)}
-                                className="mt-2"
+                                className="mt-2 pl-1"
                             >
                                 {expandedPosts[post.id] ? "Hide Comments ↑" : "Show Comments ↓"}
                             </Button>
                             {expandedPosts[post.id] && (
-                                <div className="mt-2 max-h-64 overflow-y-auto border p-2 rounded">
-                                    {post.comments?.length ? (
-                                        post.comments.map((comment) => (
-                                            <div key={comment.id} className="mb-2">
-                                                <p>{comment.content}</p>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p className="text-gray-500">No comments.</p>
-                                    )}
-                                </div>
+                                <CommentsSection
+                                    postId={post.id}
+                                    comments={post.comments}
+                                />
                             )}
                         </CardContent>
                     </Card>
                 ))
             )}
 
-            {/* EditPost Dialog */}
             <EditPost
                 post={selectedPost}
                 open={editOpen}
                 onClose={() => setEditOpen(false)}
             />
 
-            {/* DeletePost Dialog */}
             <DeletePost
                 post={selectedPost}
                 open={deleteOpen}
